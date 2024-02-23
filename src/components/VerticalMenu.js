@@ -1,16 +1,15 @@
 // src/components/VerticalMenu.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const VerticalMenu = ({ items, onSelectMenu }) => {
   return (
     <div className="vertical-menu">
-      <ul>
-        {items.map((item) => (
-          <li key={item.id} onClick={() => onSelectMenu(item)}>
-            {item.label}
-          </li>
-        ))}
-      </ul>
+      {items.map((item) => (
+        <button key={item.id} onClick={() => onSelectMenu(item.id)}>
+          <Link to={item.path}>{item.label}</Link>
+        </button>
+      ))}
     </div>
   );
 };

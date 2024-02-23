@@ -1,70 +1,101 @@
-// CreateTenderPage.js
+// src/components/CreateTenderPage.js
 import React, { useState } from 'react';
-import { Button, TextField, Typography, Container } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { TextField, Button, Typography, Container, Grid, InputAdornment } from '@mui/material';
+import EventIcon from '@mui/icons-material/Event'; // Import the EventIcon for the deadline field
+
 const CreateTenderPage = () => {
-  
-  const [tenderData, setTenderData] = useState({
+  const [tenderDetails, setTenderDetails] = useState({
     title: '',
     description: '',
-    deadline: '',
-    // Add other required fields
+    budget: '',
+    deadline: '', // New deadline field
+    // Add other fields as needed
   });
 
-  const handleChange = (field, value) => {
-    setTenderData({ ...tenderData, [field]: value });
+  const handleInputChange = (field, value) => {
+    setTenderDetails((prevDetails) => ({
+      ...prevDetails,
+      [field]: value,
+    }));
   };
 
-  const handleSubmit = async () => {
-    // Implement backend API call to create a new tender
-    try {
-      // Call backend API to create a new tender with tenderData
-      // If successful, redirect to the tender details page
-      <Link to="/home">Back to Home</Link>
-    } catch (error) {
-      console.error('Tender creation failed:', error.message);
-    }
+  const handleCreateTender = () => {
+    // Add logic to handle the creation of the tender
+    console.log('Tender Details:', tenderDetails);
+    // Reset form fields after creating the tender
+    setTenderDetails({
+      title: '',
+      description: '',
+      budget: '',
+      deadline: '',
+    });
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Typography component="h1" variant="h5">
-        Create New Tender
-      </Typography>
-      <form>
-        <TextField
-          label="Title"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={tenderData.title}
-          onChange={(e) => handleChange('title', e.target.value)}
-        />
-        <TextField
-          label="Description"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-          value={tenderData.description}
-          onChange={(e) => handleChange('description', e.target.value)}
-        />
-        <TextField
-          label="Deadline"
-          type="datetime-local"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={tenderData.deadline}
-          onChange={(e) => handleChange('deadline', e.target.value)}
-        />
-        {/* Add other required fields */}
-
-        <Button variant="contained" fullWidth onClick={handleSubmit}>
+      <div>
+        <Typography component="h1" variant="h5">
           Create Tender
-        </Button>
-      </form>
+        </Typography>
+        <form>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Title"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={tenderDetails.title}
+                onChange={(e) => handleInputChange('title', e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={tenderDetails.description}
+                onChange={(e) => handleInputChange('description', e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Budget"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={tenderDetails.budget}
+                onChange={(e) => handleInputChange('budget', e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Deadline"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                type="date" // Use type="date" for date input
+                value={tenderDetails.deadline}
+                onChange={(e) => handleInputChange('deadline', e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EventIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            {/* Add other fields as needed */}
+            <Grid item xs={12}>
+              <Button variant="contained" fullWidth onClick={handleCreateTender}>
+                Create Tender
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
     </Container>
   );
 };
