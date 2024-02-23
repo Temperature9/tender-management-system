@@ -1,0 +1,17 @@
+/* src/components/BiddingDetailsPage.css */
+
+.bidding-details-page {
+    padding: 20px;
+  }
+  
+  .details-section {
+    margin-bottom: 20px;
+  }
+  
+  .details-section h3 {
+    color: #007bff;
+    margin-bottom: 8px;
+  }
+  
+  /* Add more styles as needed */
+  

@@ -1,0 +1,29 @@
+/* src/components/Navbar.css */
+.AppBar {
+    background-color: #1976d2; /* Adjust the color as needed */
+  }
+  
+  .Toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .Button {
+    text-transform: none; /* Prevent uppercase text for buttons */
+    font-size: 16px; /* Adjust font size as needed */
+    font-weight: bold;
+    margin-right: 10px; /* Adjust spacing between buttons as needed */
+    color: #fff !important; /* Set text color to white */
+    text-decoration: none !important; /* Remove default underline */
+  }
+  
+  .Button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+  }
+  
+  .Typography {
+    flex-grow: 1;
+  }
+  
+  /* Add more styles based on your design needs */
+  
