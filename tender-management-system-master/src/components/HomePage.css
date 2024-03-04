@@ -1,0 +1,63 @@
+/* HomePage.css */
+
+.home-page {
+  
+  color: #FFFFFF; /* Set text color to white or a suitable contrasting color */
+}
+
+.hero-section {
+  background: linear-gradient(45deg, #8E24AA, #311B92);
+  padding: 60px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.apply-now-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  text-decoration: none;
+  color: #FFFFFF;
+  background-color: #BA68C8; /* Adjust to your purple theme */
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.apply-now-button:hover {
+  background-color: #8E24AA; /* Hover color */
+}
+
+.features-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 60px 0;
+}
+
+.feature-card {
+  text-align: center;
+  max-width: 300px;
+  color: black;
+}
+
+.feature-card h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: black;
+}
+
+
+/* Add styles for the "Get Started Section" if needed */

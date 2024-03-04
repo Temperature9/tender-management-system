@@ -1,0 +1,72 @@
+/* src/components/FactoryOwnerDashboard.css */
+
+.factory-owner-dashboard {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh;
+  color: white;
+  background: linear-gradient(135deg, #9c27b0, #673ab7) /* Light purple background color */
+}
+.factory-owner-dashboard h2{
+  color: white;
+}
+.dashboard-content {
+  width: 80%; /* Adjust the width as needed */
+  text-align: center; /* Center text within the content */
+}
+
+.welcome-message {
+color: black;
+  margin-bottom: 70px;
+}
+
+.options-container {
+  display: flex;
+  justify-content: space-around; /* Evenly distribute the cards */
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-card {
+  width: 250px; /* Set a fixed width for the cards */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  background: linear-gradient(45deg, #ffffff, #f3e5f5); /* Gradient background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.card-1 {
+  background: linear-gradient(45deg, #ffd54f, #ffa000); /* Amber to Orange gradient */
+}
+
+.card-2 {
+  background: linear-gradient(45deg, #81c784, #4caf50); /* Green to Light Green gradient */
+}
+
+.card-3 {
+  background: linear-gradient(45deg, #7986cb, #3f51b5); /* Indigo to Deep Purple gradient */
+}
+
+.dashboard-card h3 {
+  color: #311b92; /* Dark purple color for heading text */
+  margin-bottom: 10px;
+}
+
+.dashboard-card p {
+  color: #616161; /* Gray color for additional text */
+  font-size: 14px;
+}
+
+.dashboard-link {
+  text-decoration: none;
+  color: #311b92; /* Dark purple color for links */
+}

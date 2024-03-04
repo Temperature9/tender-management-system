@@ -1,0 +1,115 @@
+/* src/components/BiddingPage.css */
+
+.bidding-page {
+    padding: 20px;
+  }
+  
+  .factory-list {
+    margin-bottom: 30px;
+  }
+  .factory-list{
+    margin-top: 100px;
+  }
+  .factory-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .factory-card {
+    background-color: #fff;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .factory-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .factory-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+  }
+  
+  .factory-card p {
+    margin-bottom: 16px;
+    color: #555;
+  }
+  
+  .btn-secondary {
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #0056b3;
+  }
+  
+  .get-started-section {
+    text-align: center;
+    position: relative;
+    height: 400px; /* Set the desired height of your section */
+    background-size: cover; /* Cover the entire container */
+    background-position: center center; /* Center the background image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+  
+  .text-overlay {
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Add more styles as needed */
+  /* BiddingPage.css */
+
+/* Existing styles for your buttons */
+.btn-secondary {
+  background-color: #8E24AA; /* Change this to your theme color */
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #311B92; /* Change this to your theme hover color */
+}
+
+/* New style for the Bid button */
+.btn-bid {
+  background-color: #28a745; /* Change this to your theme color for the Bid button */
+  color: #ffffff;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  margin-left: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-bid:hover {
+  background-color: #218838; /* Change this to your theme hover color for the Bid button */
+}
