@@ -1,6 +1,7 @@
 // src/components/LoginPage.js
 import React, { useState } from 'react';
-import './123.jpg';
+import './123.jpg';import Snackbar from '@mui/material/Snackbar';  // Import Snackbar
+import Alert from '@mui/material/Alert'; 
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import {
   Button,
@@ -17,7 +18,12 @@ import {
 
 const LoginPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(''); const [loginDetails, setLoginDetails] = useState({
+    username: '',
+    password: '',
+  }); const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
   const [loginMethod, setLoginMethod] = useState('email');
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
@@ -28,29 +34,35 @@ const LoginPage = () => {
     phoneNumber: '',
     aadharNumber: '',
   });
-
+  const handleSnackbar = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:3001', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful:', data.message);
-        // Redirect to the home page or perform other actions after successful login
-      } else {
-        const data = await response.json();
-        console.error('Login failed:', data.error);
-      }
-    } catch (error) {
+      const response = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: loginDetails.username,
+        password: loginDetails.password,
+      }),
+    });
+
+    if (response.ok) {
+      // Redirect to the home-page if login is successful
+      navigate('/home-page');
+    } else {
+      const data = await response.json();
+      console.error('Login failed:', data.error);
+
+      // Show error message in Snackbar
+      handleSnackbar(data.error || 'Login failed. Please try again.', 'error');
+    }
+  } catch (error) {
       console.error('Error during login:', error);
     }
   };
@@ -215,6 +227,11 @@ const LoginPage = () => {
           </Grid>
         </Box>
       </Box>
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
+        <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
