@@ -1,4 +1,3 @@
-// src/components/RegistrationPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,6 +11,8 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Snackbar,
+  Alert, // Import the Alert component
 } from '@mui/material';
 
 const RegistrationPage = () => {
@@ -24,7 +25,7 @@ const RegistrationPage = () => {
     phoneNumber: '',
     aadharNumber: '',
     password: '',
-    username: '', // Added password field
+    username: '',
   });
 
   const [error, setError] = useState({
@@ -32,8 +33,23 @@ const RegistrationPage = () => {
     phoneNumber: false,
     aadharNumber: false,
     password: false,
-    // Added password error state
+    username: false, // Add username to error state
   });
+
+  // State for Snackbar
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSnackbar = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
 
   const handleRegistrationTypeChange = (event) => {
     setRegistrationType(event.target.value);
@@ -43,19 +59,15 @@ const RegistrationPage = () => {
     let isValid = true;
 
     if (field === 'email') {
-      // Validate email format
       isValid = /\S+@\S+\.\S+/.test(value);
     } else if (field === 'phoneNumber' || field === 'aadharNumber') {
-      // Validate phone number and Aadhar number format
       isValid = /^\d{10,12}$/.test(value);
     } else if (field === 'password') {
-      // Validate password (you can add your own validation logic)
-      isValid = value.length >= 6; // For example, require at least 6 characters
-    } else if (field === 'username') {  // Add this block for 'username'
-      isValid = value.trim() !== '';  // Validate that username is not empty
+      isValid = value.length >= 6;
+    } else if (field === 'username') {
+      isValid = value.trim() !== '';
     }
 
-    // Update the error state
     setError((prevError) => ({
       ...prevError,
       [field]: !isValid,
@@ -77,21 +89,36 @@ const RegistrationPage = () => {
         body: JSON.stringify({
           ...registrationDetails,
           type: registrationType,
-          name: registrationDetails.name, // // Include 'type' field
-        }), });
-
+          name: registrationDetails.name,
+        }),
+      });
+  
       if (response.ok) {
         console.log('Registration successful');
         navigate('/');
       } else {
         const data = await response.json();
         console.error('Registration failed:', data.error);
+  
+        // Show error message in Snackbar
+        if (data.errors) {
+          // Handle multiple errors
+          Object.keys(data.errors).forEach((field) => {
+            handleSnackbar(data.errors[field], 'error');
+          });
+        } else {
+          // Fallback to a generic error message
+          handleSnackbar(data.error || 'Registration failed. Please try again.', 'error');
+        }
       }
     } catch (error) {
       console.error('Error during registration:', error);
+  
+      // Show a generic error message in Snackbar
+      handleSnackbar('An error occurred during registration', 'error');
     }
   };
-
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -217,6 +244,12 @@ const RegistrationPage = () => {
           </Grid>
         </Box>
       </Box>
+    {/* Snackbar component for displaying error messages */}
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

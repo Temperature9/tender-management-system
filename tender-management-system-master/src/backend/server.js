@@ -22,33 +22,60 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.error('Error connecting to MongoDB:', error);
   });
 
-app.post('/register', async (req, res) => {
-  const { username, password, type, email, phoneNumber, aadharNumber, name } = req.body;
-
-  try {
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).json({ error: 'Username already exists' });
+  app.post('/register', async (req, res) => {
+    const { username, password, type, email, phoneNumber, aadharNumber, name } = req.body;
+  
+    try {
+      const existingEmail = await User.findOne({ email });
+      if (existingEmail) {
+        return res.status(400).json({ error: 'Email already exists' });
+      }
+  
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(400).json({ error: 'Username already exists' });
+      }
+  
+      const existingPhoneNumber = await User.findOne({ phoneNumber });
+      if (existingPhoneNumber) {
+        return res.status(400).json({ error: 'Phone number already exists' });
+      }
+  
+      const existingAadhar = await User.findOne({ aadharNumber });
+      if (existingAadhar) {
+        return res.status(400).json({ error: 'Aadhar number already exists' });
+      }
+  
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({
+        username,
+        password: hashedPassword,
+        type,
+        email,
+        phoneNumber,
+        aadharNumber,
+        ...(name && { name }), // Include the "name" field if it exists
+      });
+  
+      await newUser.save();
+      res.status(201).json({ message: 'Registration successful' });
+    } catch (error) {
+      console.error('Error during registration:', error);
+  
+      if (error.name === 'ValidationError') {
+        // Handle validation errors
+        const errors = {};
+        Object.keys(error.errors).forEach((field) => {
+          errors[field] = error.errors[field].message;
+        });
+        return res.status(400).json({ errors });
+      }
+  
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      username,
-      password: hashedPassword,
-      type,
-      email,
-      phoneNumber,
-      aadharNumber,
-      ...(name && { name }), // Include the "name" field if it exists
-    });
-
-    await newUser.save();
-    res.status(201).json({ message: 'Registration successful' });
-  } catch (error) {
-    console.error('Error during registration:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+  });
+  
+  
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
