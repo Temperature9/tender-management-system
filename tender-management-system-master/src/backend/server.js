@@ -6,7 +6,7 @@ const User = require('./models/User');
 const app = express();
 const PORT = 3001;
 const mongoUri = 'mongodb://localhost:27017/user-auth';
-
+const FactoryOwner = require('./models/FactoryOwner');
 // Use CORS middleware
 app.use(cors());
 
@@ -21,6 +21,36 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
   });
+
+  app.post('/owner-register', async (req, res) => {
+    const { name, email, password } = req.body;
+  
+    try {
+      // Check if the email already exists in the 'factory' collection
+      const existingFactoryOwner = await FactoryOwner.findOne({ email });
+  
+      if (existingFactoryOwner) {
+        return res.status(400).json({ error: 'Email already exists' });
+      }
+  
+      // If the email doesn't exist, proceed with registration
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newFactoryOwner = new FactoryOwner({
+        name,
+        email,
+        password: hashedPassword,
+        // Add other fields as needed
+      });
+  
+      await newFactoryOwner.save();
+      res.status(201).json({ message: 'Factory owner registration successful' });
+    } catch (error) {
+      console.error('Error during factory owner registration:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
+ 
 
   app.post('/register', async (req, res) => {
   const { username, password, type, email, phoneNumber, aadharNumber, name } = req.body;

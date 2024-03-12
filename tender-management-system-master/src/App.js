@@ -16,7 +16,7 @@ import TenderManagement from './components/TenderManagement';
 import BidManagement from './components/BidManagement';
 import DocumentManagement from './components/DocumentManagement';
 import Integration from './components/Integration';
-
+import FactoryOwnerLoginPage from './components/FactoryOwnerLoginPage';
 function App() {
   return (
  
@@ -34,7 +34,9 @@ function App() {
           
           <Route path="/create-tender" element={<CreateTenderPage/>} />
           <Route path="/tender-details" element={<TenderDetailsPage/>} />
-          <Route path="/factory-owner-registration" element={<FactoryOwnerRegistrationPage/>} />
+
+          <Route path="/fol" element={<FactoryOwnerLoginPage/>} />
+          <Route path="/for" element={<FactoryOwnerRegistrationPage/>} />
           <Route path="/fod" element={<FactoryOwnerDashboard/>} />
           <Route path="/tender-management" element={<TenderManagement/>} />
           <Route path="/bid-management" element={<BidManagement/>} />

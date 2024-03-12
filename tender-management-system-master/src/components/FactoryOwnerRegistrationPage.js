@@ -15,15 +15,26 @@ const FactoryOwnerRegistrationPage = () => {
   };
 
   const handleSubmit = async () => {
-    // Implement backend API call to register factory owner
     try {
-      // Call backend API to register factory owner with formData
-      // If successful, redirect to the dashboard
-      <Link to="/login">Already have an account? Login here</Link>
+      const response = await fetch('http://localhost:3001/owner-register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log('Factory owner registration successful');
+        // Redirect to the login page or handle success as needed
+      } else {
+        console.error('Factory owner registration failed');
+      }
     } catch (error) {
       console.error('Registration failed:', error.message);
     }
   };
+  
 
   return (
     <Container component="main" maxWidth="xs">

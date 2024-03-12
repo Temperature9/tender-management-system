@@ -65,7 +65,7 @@ const FactoryOwnerLoginPage = () => {
 
         <Typography variant="body2" style={{ marginTop: '16px' }}>
           Don't have an account?{' '}
-          <Link href="/factory-owner-registration" color="primary">
+          <Link href="/for" color="primary">
             Register here
           </Link>
         </Typography>

@@ -15,7 +15,7 @@ const factoryOwnerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // Add other required fields for factory owner
+  // Add other fields as needed
 });
 
 const FactoryOwner = mongoose.model('FactoryOwner', factoryOwnerSchema);
